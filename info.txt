@@ -1,0 +1,5 @@
+scale60_lesMaskConn.mat 
+are the nifti files of the stroke patients Jessica had shared with me ('niftiFiles'), 
+full connectome ('SC'), and reduced connectome ('allRedConn') along with some other useful information 
+for the parcellation that this is currently based on which is the Lausanne 129 areas parcellation 
+(with 114 cortical and 15 subcortical regions).

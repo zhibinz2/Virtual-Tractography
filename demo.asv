@@ -19,10 +19,10 @@ catch
     disp('Unable to display the brain mesh and demo lesion mask')
 end
 
-%%
+
 disp('Using the Virtual Structural Connectome code:')
 load('streamlines.mat')
-% currently parcels is the Lausanne-60 parcellation
+% currently parcels is the Lausanne-60 parcellation 
 [sc_new,rc] = getLesionMaskConnectome(allTractsInterp, parcels,lesMaskDemo);
 
 sc_new = sc_new .* double(~eye(length(sc_new))); % diagonal contains degrees for each node right now, removing that
@@ -34,7 +34,7 @@ rc = rc .* double(~eye(length(sc_new)));
 redConn = rc.*(SC>0); 
 fullsc = sc_new.* (SC>0);
 
-% plot
+%%
 disp('Binary SC and Virtual SC')
 figure
 subplot(121)

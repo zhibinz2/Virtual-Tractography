@@ -70,7 +70,7 @@ lesMaskStreamlines = zeros(size(tract_interp,3),1);
 for iTrk=1:size(tract_interp,3)
     
     % Translate continuous vertex coordinates into discrete voxel coordinates
-    vox = ceil(squeeze(tract_interp(:,1:3,iTrk)) ./ repmat(voxel_size, size(tract_interp,1),3)); %could multiple tracks wind up with the same voxel coordinate?
+    vox = ceil(squeeze(tract_interp(:,1:3,iTrk)) ./ repmat(voxel_size, size(tract_interp,1),3)); % could multiple tracks wind up with the same voxel coordinate?
     
     % Index into volume to extract scalar values
     inds                = sub2ind([size(parcels,1),size(parcels,2), size(parcels,3)], vox(:,1), vox(:,2), vox(:,3));
