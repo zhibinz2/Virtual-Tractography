@@ -22,7 +22,7 @@ end
 %%
 disp('Using the Virtual Structural Connectome code:')
 load('streamlines.mat')
-% currently parcels is the Lausanne-60 parcellation
+% currently parcels is the Lausanne-60 parcellation (I think it is 129?)
 [sc_new,rc] = getLesionMaskConnectome(allTractsInterp, parcels,lesMaskDemo);
 
 sc_new = sc_new .* double(~eye(length(sc_new))); % diagonal contains degrees for each node right now, removing that
