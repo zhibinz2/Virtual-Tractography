@@ -7,6 +7,7 @@ load('baseData.mat')
 
 try
     figure
+    % slice([-91:90], [-109:108], [-91:90],permute(parcels, [2 1 3]),0,0, 0, 'nearest')
     h1 = slice([-91:90], [-109:108], [-91:90],permute(lesMaskDemo, [2 1 3]),0,0, 0, 'nearest');
     xlabel('x');ylabel('y');zlabel('z');
     shading flat;    
