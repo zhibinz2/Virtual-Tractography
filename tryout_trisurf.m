@@ -41,13 +41,17 @@ load('baseData.mat')
 Points=BrainTri.Points;
 ConnectivityList=BrainTri.ConnectivityList;
 
+figure
+subplot(121)
 % h2 = trisurf(BrainTri,'FaceColor',[0 1 0],'EdgeColor',[1 0 0],'DisplayName', 'Convex Hull');
-h2 = trisurf(BrainTri,'EdgeColor',[1 0 0]);
+% h2 = trisurf(BrainTri,'EdgeColor',[1 0 0]);
+trisurf(BrainTri);
 xlabel('x');ylabel('y');zlabel('z');
+title('baseData')
+view(90,0)
+% plot(Points(:,1),Points(:,3),'r.')
 
-plot(Points(:,1),Points(:,3),'r.')
-
-%%
+%
 clear
 cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography
 load('rh_pial.mat')
@@ -55,14 +59,12 @@ load('rh_pial.mat')
 % ConnectivityList=tris;
 % BrainTri.Points=rr_mm;
 % BrainTri.ConnectivityList=tris;
-
+subplot(122)
 tri=round(double(tris)+1);
 tr = triangulation(tri, rr_mm(:,1), rr_mm(:,2), rr_mm(:,3));
-trisurf(tr,'EdgeColor',[1 0 0]);
-
-
-% h2 = trisurf(BrainTri,'FaceColor',[0 1 0],'EdgeColor',[1 0 0],'DisplayName', 'Convex Hull');
-h2 = trisurf(BrainTri,'EdgeColor',[1 0 0]);
+% trisurf(tr,'EdgeColor',[1 0 0]);
+trisurf(tr);
 xlabel('x');ylabel('y');zlabel('z');
-
-plot(Points(:,3),Points(:,2),'r.')
+title('MNE: rh-pial')
+view(90,0)
+% plot(Points(:,3),Points(:,2),'r.')
