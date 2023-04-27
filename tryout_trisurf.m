@@ -35,11 +35,34 @@ tetramesh(tri,X);
 xlabel('x');ylabel('y');zlabel('z');
 
 %%
-
 clear
 load('baseData.mat')
 
 Points=BrainTri.Points;
 ConnectivityList=BrainTri.ConnectivityList;
 
-h2 = trisurf(BrainTri);
+% h2 = trisurf(BrainTri,'FaceColor',[0 1 0],'EdgeColor',[1 0 0],'DisplayName', 'Convex Hull');
+h2 = trisurf(BrainTri,'EdgeColor',[1 0 0]);
+xlabel('x');ylabel('y');zlabel('z');
+
+plot(Points(:,1),Points(:,3),'r.')
+
+%%
+clear
+cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography
+load('rh_pial.mat')
+% Points=rr_mm;
+% ConnectivityList=tris;
+% BrainTri.Points=rr_mm;
+% BrainTri.ConnectivityList=tris;
+
+tri=round(double(tris)+1);
+tr = triangulation(tri, rr_mm(:,1), rr_mm(:,2), rr_mm(:,3));
+trisurf(tr,'EdgeColor',[1 0 0]);
+
+
+% h2 = trisurf(BrainTri,'FaceColor',[0 1 0],'EdgeColor',[1 0 0],'DisplayName', 'Convex Hull');
+h2 = trisurf(BrainTri,'EdgeColor',[1 0 0]);
+xlabel('x');ylabel('y');zlabel('z');
+
+plot(Points(:,3),Points(:,2),'r.')

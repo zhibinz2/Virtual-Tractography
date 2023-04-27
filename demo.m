@@ -21,6 +21,8 @@ catch
 end
 
 %%
+close
+clear
 disp('Using the Virtual Structural Connectome code:')
 load('streamlines.mat')
 % currently parcels is the Lausanne-60 parcellation (I think it is 129?)
