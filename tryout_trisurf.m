@@ -36,35 +36,43 @@ xlabel('x');ylabel('y');zlabel('z');
 
 %%
 clear
+close
+cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography
 load('baseData.mat')
 
 Points=BrainTri.Points;
 ConnectivityList=BrainTri.ConnectivityList;
 
-figure
-subplot(121)
+figure('units','normalized','outerposition',[0 0 0.3 0.8]);
+% subplot(121)
 % h2 = trisurf(BrainTri,'FaceColor',[0 1 0],'EdgeColor',[1 0 0],'DisplayName', 'Convex Hull');
 % h2 = trisurf(BrainTri,'EdgeColor',[1 0 0]);
-trisurf(BrainTri);
+trisurf(BrainTri,'EdgeColor',[0.5 0.5 0.5],'EdgeAlpha',0.5);
 xlabel('x');ylabel('y');zlabel('z');
 title('baseData')
 view(90,0)
+ylim([-125,125]); zlim([-125,125]); xlim([-125,125]);
 % plot(Points(:,1),Points(:,3),'r.')
 
-%
+%%
 clear
-cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography
+close
+% cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography
+cd /home/zhibinz2/Documents/GitHub/brain_network_python/mne_test/
 load('rh_pial.mat')
 % Points=rr_mm;
 % ConnectivityList=tris;
 % BrainTri.Points=rr_mm;
 % BrainTri.ConnectivityList=tris;
-subplot(122)
+% subplot(122)
+
+figure('units','normalized','outerposition',[0 0 0.3 0.8]);
 tri=round(double(tris)+1);
 tr = triangulation(tri, rr_mm(:,1), rr_mm(:,2), rr_mm(:,3));
 % trisurf(tr,'EdgeColor',[1 0 0]);
-trisurf(tr);
+trisurf(tr,'EdgeColor',[0.5 0.5 0.5],'EdgeAlpha',0.5);
 xlabel('x');ylabel('y');zlabel('z');
-title('MNE: rh-pial')
+title('mne-data/MNE-sample-data/subjects/fsaverage/surf/rh.pial')
 view(90,0)
+ylim([-125,125]); zlim([-125,125]); xlim([-125,125]);
 % plot(Points(:,3),Points(:,2),'r.')
