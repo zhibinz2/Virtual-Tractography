@@ -76,3 +76,17 @@ title('mne-data/MNE-sample-data/subjects/fsaverage/surf/rh.pial')
 view(90,0)
 ylim([-125,125]); zlim([-125,125]); xlim([-125,125]);
 % plot(Points(:,3),Points(:,2),'r.')
+
+%% XPS17
+cd C:\Users\zhouz\GitHub\brain_network_python\mne_test
+load('rh_pial.mat')
+
+figure('units','normalized','outerposition',[0 0 0.3 0.8]);
+tri=round(double(tris)+1);
+tr = triangulation(tri, rr_mm(:,1), rr_mm(:,2), rr_mm(:,3));
+% trisurf(tr,'EdgeColor',[1 0 0]);
+trisurf(tr,'EdgeColor',[0.5 0.5 0.5],'EdgeAlpha',0.5);
+xlabel('x');ylabel('y');zlabel('z');
+title('mne-data/MNE-sample-data/subjects/fsaverage/surf/rh.pial')
+view(90,0)
+ylim([-125,125]); zlim([-125,125]); xlim([-125,125]);
