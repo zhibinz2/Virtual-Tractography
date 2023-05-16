@@ -1,3 +1,4 @@
+cd C:\Users\zhouz\GitHub\Virtual-Tractography
 load('streamlines.mat')
 
 i=1;
@@ -26,6 +27,12 @@ hold off
 view(0,90)
 
 %%
+
+cd C:\Users\zhouz\GitHub\Virtual-Tractography
+load('streamlines.mat')
+
+
+
 cd C:\Users\zhouz\GitHub\brain_network_python\mne_test
 
 load('rh_pial.mat')
