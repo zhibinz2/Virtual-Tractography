@@ -90,3 +90,11 @@ xlabel('x');ylabel('y');zlabel('z');
 title('mne-data/MNE-sample-data/subjects/fsaverage/surf/rh.pial')
 view(90,0)
 ylim([-125,125]); zlim([-125,125]); xlim([-125,125]);
+
+%% XPS17
+cd C:\Users\zhouz\GitHub\Virtual-Tractography
+cd C:\Users\zhouz\GitHub\CAMCAN_MEG_100
+load('Lausanne2008_fsaverageDSsurf_60_125_250.mat')
+
+addpath C:\Users\zhouz\GitHub\matlab\3Dtools
+drawmesh(Brain)
