@@ -97,7 +97,7 @@ cd C:\Users\zhouz\GitHub\CAMCAN_MEG_100
 load('Lausanne2008_fsaverageDSsurf_60_125_250.mat')
 
 addpath C:\Users\zhouz\GitHub\matlab\3Dtools
-drawmesh(Brain,'alpha',0.1)
+drawmesh(Brain)
 
 % select the surface
 BrainTri=Brain;
@@ -108,8 +108,9 @@ Face=BrainTri.Face;
 tr = triangulation(Face, Vertex(:,1), Vertex(:,2), Vertex(:,3));
 
 trisurf(tr,'EdgeColor',[0.01 0.01 0.01],'EdgeAlpha',0.1);
+alpha 0.5
 
-plot3(Vertex(:,1), Vertex(:,2), Vertex(:,3),'color',[0.2 0.2 0.2 0.1])
+% plot3(Vertex(:,1), Vertex(:,2), Vertex(:,3),'color',[0.2 0.2 0.2 0.1])
 xlabel('x');ylabel('y');zlabel('z');
 title('Lausanne2008-fsaverageDSsurf-60-125-250-Brain')
 view(90,0)
@@ -121,9 +122,11 @@ plot3(source_rr(:,1) * 1e3 + 2.5,source_rr(:,2) * 1e3 -30,source_rr(:,3) * 1e3 -
 % plot3(source_vox(:,1),source_vox(:,2),source_vox(:,3),'r.')
 % plot3(source_mri(:,1),source_mri(:,2),source_mri(:,3),'r.')
 % plot3(source_test(:,1),source_test(:,2),source_test(:,3),'r.')
+% plot3(dip_pos(:,1)* 1e3,dip_pos(:,2)* 1e3,dip_pos(:,3)* 1e3,'r.')
+% plot3(dip_ori(:,1),dip_ori(:,2),dip_ori(:,3),'r.') % sphere
 view(90,0)
 ylim([-125,125]); zlim([-125,125]); xlim([-125,125]);
 grid on
-title('source-rr from forward solution')
+title('source-rr from forward solution (shifted by 1e3+2.5,1e3-30,1e3-42)')
 % plot3(source_nn(:,1),source_nn(:,2),source_nn(:,3),'b.') % sphere
 
