@@ -107,9 +107,9 @@ Face=BrainTri.Face;
 
 tr = triangulation(Face, Vertex(:,1), Vertex(:,2), Vertex(:,3));
 
-trisurf(tr,'EdgeColor',[0.01 0.01 0.01],'EdgeAlpha',0.1);
+trisurf(tr,'EdgeColor',[0.1 0.1 0.1],'EdgeAlpha',0.1);
 
-plot3(Vertex(:,1), Vertex(:,2), Vertex(:,3),'color',[0.2 0.2 0.2 0.1])
+plot3(Vertex(:,1), Vertex(:,2), Vertex(:,3),'b.','Alpha')
 xlabel('x');ylabel('y');zlabel('z');
 title('Lausanne2008-fsaverageDSsurf-60-125-250-Brain')
 view(90,0)
@@ -117,10 +117,10 @@ view(90,0)
 cd C:\Users\zhouz\Downloads\zhibin_source_localization
 load('leadfield_nn_rr.mat')
 hold on 
-plot3(source_rr(:,1) * 1e3 + 2.5,source_rr(:,2) * 1e3 -30,source_rr(:,3) * 1e3 -42,'r.')
+% plot3(source_rr(:,1) * 1e3 + 2.5,source_rr(:,2) * 1e3 -30,source_rr(:,3) * 1e3 -42,'r.')
 % plot3(source_vox(:,1),source_vox(:,2),source_vox(:,3),'r.')
 % plot3(source_mri(:,1),source_mri(:,2),source_mri(:,3),'r.')
-% plot3(source_test(:,1),source_test(:,2),source_test(:,3),'r.')
+plot3(source_test(:,1),source_test(:,2),source_test(:,3),'r.')
 view(90,0)
 ylim([-125,125]); zlim([-125,125]); xlim([-125,125]);
 grid on
