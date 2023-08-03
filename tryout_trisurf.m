@@ -124,6 +124,8 @@ plot3(source_rr(:,1) * 1e3 + 2.5,source_rr(:,2) * 1e3 -30,source_rr(:,3) * 1e3 -
 % plot3(source_test(:,1),source_test(:,2),source_test(:,3),'r.')
 % plot3(dip_pos(:,1)* 1e3,dip_pos(:,2)* 1e3,dip_pos(:,3)* 1e3,'r.')
 % plot3(dip_ori(:,1),dip_ori(:,2),dip_ori(:,3),'r.') % sphere
+% use_tris=double(use_tris);
+% plot3(use_tris(:,1),use_tris(:,2),use_tris(:,3),'r.') 
 view(90,0)
 ylim([-125,125]); zlim([-125,125]); xlim([-125,125]);
 grid on
