@@ -132,3 +132,18 @@ grid on
 title('source-rr from forward solution (shifted by 1e3+2.5,1e3-30,1e3-42)')
 % plot3(source_nn(:,1),source_nn(:,2),source_nn(:,3),'b.') % sphere
 
+
+%% hnlb
+cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/processed data
+load('scale250_Connectome.mat')
+
+% select the surface
+BrainTri=Brain;
+Vertex=BrainTri.Vertex;
+Face=BrainTri.Face;
+tr = triangulation(Face, Vertex(:,1), Vertex(:,2), Vertex(:,3));
+trisurf(tr,'EdgeColor',[0.01 0.01 0.01],'EdgeAlpha',0.1);
+alpha 0.5
+xlabel('x');ylabel('y');zlabel('z');
+title('scale250-Connectome-Brain')
+view(90,0)
