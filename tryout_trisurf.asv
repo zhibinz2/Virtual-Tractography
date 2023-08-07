@@ -133,12 +133,9 @@ grid on
 title('source-rr from forward solution (shifted by 1e3+2.5,1e3-30,1e3-42)')
 % plot3(source_nn(:,1),source_nn(:,2),source_nn(:,3),'b.') % sphere
 
-view(0,90) % bottom view?
-view([0 0 1])
-view(0,0) % back view
-view([0 1 0])
-view(90,90) % top view
-view([0 0 -1]) % bottom view
+view(0,90) % bottom view, same as view([0 0 1])
+view(0,0) % back view, similar as view([0 1 0])
+view(90,90) % top view, same as view([0 0 1])
 
 
 %% hnlb
