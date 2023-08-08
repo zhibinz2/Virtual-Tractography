@@ -75,22 +75,17 @@ view(90,90) % top view
 source_x=source_rr(:,1) * 1e3 + 2.5;
 source_y=source_rr(:,2) * 1e3 -30;
 source_z=source_rr(:,3) * 1e3 -42;
-source_xyz=[source_x source_y source_z];
 
-num_source=size(source_xyz,1);
+num_source=size(source_rr,1);
 num_vertex=size(Vertex,1);
-source_labels=zeros(num_source,1);
-tic
+
 for sr=1:num_source
-    tic
-    all_dis=zeros(num_vertex,1);
     for vr =1:num_vertex
-        all_dis(vr)=norm(Vertex(vr,:)-source_xyz(sr,:));
-    end
-    [M,I]=min(all_dis);
-    source_labels(sr)=scale250_Labels(I);
+        all_dis=zeros(1,num_vertex);
+        all_dis(vr)=norm(Vertex(vr,:)-source_rr(sr,:))
+
+
 end
-toc
-% Elapsed time is 0.129726 seconds.
-bar(source_labels)
+
+
 
