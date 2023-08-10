@@ -96,6 +96,7 @@ bar(source_labels)
 
 %% Anni's labeling
 cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/Volumes/scale250
+cd C:\Users\zhouz\GitHub\Virtual-Tractography\ForZhibin\Volumes
 tmp = read_avw('ROIv4_HR_th.nii.gz');
 tmp = permute(tmp, [1 3 2]);
 tmp = tmp(256:-1:1,:, 256:-1:1);
@@ -111,7 +112,7 @@ for i = 1:length(lowDimVert)
     lowDimVert_labels(i) = label;
 end
 
-
+% Method 1
 % covert parcels to linear index organization
 linear_parcels=reshape(tmp,[],1);
 parcel_labels=zeros(length(linear_parcels),1);
@@ -134,6 +135,7 @@ parcel_coordinates=parcel_coordinates(bool_parcel,:);
 parcel_labels=parcel_labels(bool_parcel);
 toc
 
+% Method 2
 % reorganize parcels to a list of non-zeros
 tic
 parcel_cordinates=[];
