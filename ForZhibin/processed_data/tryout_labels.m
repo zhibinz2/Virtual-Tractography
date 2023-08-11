@@ -96,7 +96,7 @@ bar(source_labels)
 
 %% Anni's labeling
 cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/Volumes/scale250
-cd C:\Users\zhouz\GitHub\Virtual-Tractography\ForZhibin\Volumes
+% cd C:\Users\zhouz\GitHub\Virtual-Tractography\ForZhibin\Volumes
 tmp = read_avw('ROIv4_HR_th.nii.gz');
 tmp = permute(tmp, [1 3 2]);
 tmp = tmp(256:-1:1,:, 256:-1:1);
@@ -112,28 +112,28 @@ for i = 1:length(lowDimVert)
     lowDimVert_labels(i) = label;
 end
 
-% Method 1
-% covert parcels to linear index organization
-linear_parcels=reshape(tmp,[],1);
-parcel_labels=zeros(length(linear_parcels),1);
-parcel_coordinates=zeros(length(linear_parcels))
-tic
-for l=1:length(linear_parcels)
-    if linear_parcels(l)~=0
-        parcel_cordinates(l,:)=ind2sub(size(parcels),l)
-        parcel_labels=[parcel_labels;linear_parcels(l)];
-    end
-end
-% remove zeor entry
-bool_parcel=ones(length(linear_parcels),1);
-for l=1:length(linear_parcel)
-    if linear_parcels(l)==0
-        bool_parcel(l)=0
-    end
-end
-parcel_coordinates=parcel_coordinates(bool_parcel,:);
-parcel_labels=parcel_labels(bool_parcel);
-toc
+% % Method 1
+% % covert parcels to linear index organization
+% linear_parcels=reshape(tmp,[],1);
+% parcel_labels=zeros(length(linear_parcels),1); 
+% parcel_coordinates=zeros(length(linear_parcels));
+% tic
+% for l=1:length(linear_parcels)
+%     if linear_parcels(l)~=0
+%         parcel_coordinates(l,:)=ind2sub(size(parcels),l);
+%         parcel_labels=[parcel_labels;linear_parcels(l)];
+%     end
+% end
+% % remove zeor entry
+% bool_parcel=ones(length(linear_parcels),1);
+% for l=1:length(linear_parcel)
+%     if linear_parcels(l)==0
+%         bool_parcel(l)=0;
+%     end
+% end
+% parcel_coordinates=parcel_coordinates(bool_parcel,:);
+% parcel_labels=parcel_labels(bool_parcel);
+% toc
 
 % Method 2
 % reorganize parcels to a list of non-zeros
@@ -151,7 +151,7 @@ for x=1:size(parcels,1)
     end
 end
 toc
-% it took along time
+% it took along time - 3897 second
 
 %% validation: My minimum distance method
 figure('Position', [10 10 1800 650])
@@ -187,15 +187,17 @@ cb = colorbar();
 title(cb, 'labels')
 title('ROIv4-HR-th.nii.gz')
 % view([1 0 0]) % right view
-view([-1 0 0]) % left view
-ylim([-125,125]); zlim([-125,125]); xlim([-125,125]);
+% view([-1 0 0]) % left view
+view([0 1 0]) % Front view
+ylim([0,256]); zlim([0,256]); xlim([0,256]);
 subplot(122)
 scatter3(lowDimVert(:,1), lowDimVert(:,2), lowDimVert(:,3),...
     40, lowDimVert_labels, 'filled')
 xlabel('x'); ylabel('y');zlabel('z')
 cb = colorbar(); 
 title(cb, 'labels')
-title('Ani gettingLausanne method')
+title('Ani getting-Lausanne method')
 % view([1 0 0]) % right view
-view([-1 0 0]) % left view
-ylim([-125,125]); zlim([-125,125]); xlim([-125,125]);
+% view([-1 0 0]) % left view
+view([0 1 0]) % Front view
+ylim([0,256]); zlim([0,256]); xlim([0,256]);
