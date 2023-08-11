@@ -35,6 +35,7 @@ title('source-rr from forward solution (not shifted by 1e3+2.5,1e3-30,1e3-42)')
 %%
 cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/processed_data
 % cd /home/zhibinz2/Documents/GitHub/CAMCAN_MEG_100
+cd C:\Users\zhouz\GitHub\Virtual-Tractography\ForZhibin\processed_data
 clear
 load('Lausanne2008_fsaverageDSsurf_60_125_250.mat')
 % select the surface
@@ -163,6 +164,7 @@ title(cb, 'labels')
 title('scale250-Labels')
 view([1 0 0]) % right view
 % view([-1 0 0]) % left view
+% view([0 1 0]) % Front view
 ylim([-125,125]); zlim([-125,125]); xlim([-125,125]);
 subplot(122)
 scatter3(source_rr(:,1) * 1e3 + 2.5,source_rr(:,2) * 1e3 -30,source_rr(:,3) * 1e3 -42,...
@@ -173,12 +175,13 @@ title(cb, 'labels')
 title('Minimum distance method')
 view([1 0 0]) % right view
 % view([-1 0 0]) % left view
+% view([0 1 0]) % Front view
 ylim([-125,125]); zlim([-125,125]); xlim([-125,125]);
 % set(gcf,'Position',[10 10 1800 650])
 
 
 %% validation: Ani's method
-figure('Position', [10 10 1800 650])
+figure('Position', [10 10 1500 400])
 subplot(121)
 scatter3(parcel_cordinates(:,1), parcel_cordinates(:,2), parcel_cordinates(:,3),...
     40,parcel_labels,"filled", 'MarkerFaceAlpha',.2)
@@ -201,3 +204,4 @@ title('Ani getting-Lausanne method')
 % view([-1 0 0]) % left view
 view([0 1 0]) % Front view
 ylim([0,256]); zlim([0,256]); xlim([0,256]);
+% set(gcf,'Position',[10 10 1500 400])
