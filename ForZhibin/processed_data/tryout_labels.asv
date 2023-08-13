@@ -212,28 +212,3 @@ load('FSavg_surfaces.mat')
 BrainTri=Scalp;
 Vertex=BrainTri.Vertex;
 Face=BrainTri.Face;
-tr = triangulation(Face, Vertex(:,1), Vertex(:,2), Vertex(:,3));
-trisurf(tr,'EdgeColor',[0.01 0.01 0.01],'EdgeAlpha',0.1);
-alpha 0.5
-xlabel('x');ylabel('y');zlabel('z');
-title('LFSavg-surfaces.mat-Scalp: Front view')
-title('LFSavg-surfaces.mat-Scalp: Right view')
-view(90,0)
-ylim([-125,125]); zlim([-125,125]); xlim([-125,125]);
-% cd C:\Users\zhouz\GitHub\MEG_EEG_Source_Localization\test_scripts\EEG_chan
-cd /home/zhibinz2/Documents/GitHub/MEG_EEG_Source_Localization/test_scripts/EEG_chan
-load('Electrode256_alignedtoFS.mat')
-Coordianates=Electrode.Coordinate;
-x=Coordianates(:,1);
-y=Coordianates(:,2);
-z=Coordianates(:,3);
-hold on
-plot3(x,y,z,'k.','MarkerSize',10)
-view([0,1,0]) % Front view
-xlabel('x');ylabel('y');zlabel('z')
-subtitle('back dots: EEG channels')
-
-%% create chan file in eeglab
-cd /home/zhibinz2/Documents/GitHub/Motor_cordination/1_over_f/data_analysis/channels_info
-load('chaninfo.mat')
-cd /home/zhibinz2/Documents/GitHub/MEG_EEG_Source_Localization/test_scripts/EEG_chan
