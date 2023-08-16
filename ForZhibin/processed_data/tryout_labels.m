@@ -35,7 +35,7 @@ title('source-rr from forward solution (not shifted by 1e3+2.5,1e3-30,1e3-42)')
 %%
 cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/processed_data
 % cd /home/zhibinz2/Documents/GitHub/CAMCAN_MEG_100
-cd C:\Users\zhouz\GitHub\Virtual-Tractography\ForZhibin\processed_data
+% cd C:\Users\zhouz\GitHub\Virtual-Tractography\ForZhibin\processed_data
 clear
 load('Lausanne2008_fsaverageDSsurf_60_125_250.mat')
 % select the surface
@@ -50,11 +50,13 @@ title('Lausanne2008-fsaverageDSsurf-60-125-250.mat')
 view(90,0)
 ylim([-125,125]); zlim([-125,125]); xlim([-125,125]);
 
-cd /home/zhibinz2/Documents/GitHub/MEG_EEG_Source_Localization
+% cd /home/zhibinz2/Documents/GitHub/MEG_EEG_Source_Localization
+cd /home/zhibinz2/Documents/GitHub/MEG_EEG_Source_Localization/test_scripts/EEG_chan
 % cd C:\Users\zhouz\Downloads\zhibin_source_localization
 load('leadfield_nn_rr.mat')
 hold on 
-plot3(source_rr(:,1) * 1e3 + 2.5,source_rr(:,2) * 1e3 -30,source_rr(:,3) * 1e3 -42,'r.')
+% plot3(source_rr(:,1) * 1e3 + 2.5,source_rr(:,2) * 1e3 -30,source_rr(:,3) * 1e3 -42,'r.')
+plot3(source_rr(:,1) * 1e3,source_rr(:,2) * 1e3-21,source_rr(:,3) * 1e3-20,'r.')
 view(90,0)
 % ylim([-125,125]); zlim([-125,125]); xlim([-125,125]);
 grid on
@@ -94,6 +96,25 @@ end
 toc
 % Elapsed time is 0.129726 seconds.
 bar(source_labels)
+
+%% scale60
+num_vertex=size(Vertex,1);
+source_labels=zeros(num_source,1);
+tic
+for sr=1:num_source
+    tic
+    all_dis=zeros(num_vertex,1);
+    for vr =1:num_vertex
+        all_dis(vr)=norm(Vertex(vr,:)-source_xyz(sr,:));
+    end
+    [M,I]=min(all_dis);
+    source_labels(sr)=scale250_Labels(I);
+end
+toc
+% Elapsed time is 0.129726 seconds.
+bar(source_labels)
+
+
 
 %% Anni's labeling
 cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/Volumes/scale250
@@ -157,9 +178,11 @@ toc
 %% validation: My minimum distance method
 figure('Position', [10 10 1800 650])
 subplot(121)
-scatter3(Vertex(:,1), Vertex(:,2), Vertex(:,3),40,scale250_Labels,"filled", 'MarkerFaceAlpha',.2)
+scatter3(Vertex(:,1), Vertex(:,2), Vertex(:,3),40,scale250_Labels,...
+    "filled", 'MarkerFaceAlpha',.2)
 xlabel('x'); ylabel('y');zlabel('z')
 cb = colorbar(); 
+colormap('jet')
 title(cb, 'labels')
 title('scale250-Labels')
 view([1 0 0]) % right view
@@ -171,6 +194,7 @@ scatter3(source_rr(:,1) * 1e3 + 2.5,source_rr(:,2) * 1e3 -30,source_rr(:,3) * 1e
     40, source_labels, 'filled')
 xlabel('x'); ylabel('y');zlabel('z')
 cb = colorbar(); 
+colormap('jet')
 title(cb, 'labels')
 title('Minimum distance method')
 view([1 0 0]) % right view
@@ -237,3 +261,50 @@ subtitle('back dots: EEG channels')
 cd /home/zhibinz2/Documents/GitHub/Motor_cordination/1_over_f/data_analysis/channels_info
 load('chaninfo.mat')
 cd /home/zhibinz2/Documents/GitHub/MEG_EEG_Source_Localization/test_scripts/EEG_chan
+
+%% group subregions to 68 region names
+cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/processed_data
+% cd /home/zhibinz2/Documents/GitHub/CAMCAN_MEG_100
+% cd C:\Users\zhouz\GitHub\Virtual-Tractography\ForZhibin\processed_data
+load('Lausanne2008_fsaverageDSsurf_60_125_250.mat')
+% select the surface
+BrainTri=Brain;
+Vertex=BrainTri.Vertex;
+
+
+idx=endsWith(roiNames_250,'_1');
+regions_names=roiNames_250(idx);
+regions_names = strrep(regions_names,'_1','');
+idx_n=find(idx);
+idx_nnn=nan(length(idx),1);
+for n=1:(length(idx_n))
+    group_name=regions_names(n);
+    if n < length(idx_n)-1
+        idx_nnn(idx_n(n):(idx_n(n+1)-1))=idx_n(n);
+    else
+        idx_nnn(idx_n(n):end)=idx_n(n);
+    end
+end
+
+scale250_nnn=zeros(length(scale250_Labels),1);
+tic
+for nnn=1:length(scale250_Labels)
+    if scale250_Labels(nnn)~=0
+        scale250_nnn(nnn)=idx_nnn(scale250_Labels(nnn));
+    end
+end
+toc
+bar(scale250_nnn)
+
+scatter3(Vertex(:,1), Vertex(:,2), Vertex(:,3),50,scale250_nnn,...
+    "filled", 'MarkerFaceAlpha',.2)
+xlabel('x'); ylabel('y');zlabel('z')
+cb = colorbar(); 
+colormap('jet')
+title(cb, 'labels')
+title('scale250-Labels')
+view([1 0 0]) % right view
+% view([-1 0 0]) % left view
+% view([0 1 0]) % Front view
+ylim([-125,125]); zlim([-125,125]); xlim([-125,125]);
+
