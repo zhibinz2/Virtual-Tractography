@@ -34,8 +34,9 @@ rc = rc .* double(~eye(length(sc_new)));
 % Ahead: removing non-homotopic connections - optional; 
 % SC matrix used here needs to be recreated for the parcellation applied.
 % Use with caution.
-redConn = rc.*(SC>0); 
 fullsc = sc_new.* (SC>0);
+redConn = rc.*(SC>0); 
+
 
 % plot
 disp('Binary SC and Virtual SC')

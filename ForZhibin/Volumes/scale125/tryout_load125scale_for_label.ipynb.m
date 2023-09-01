@@ -9,6 +9,9 @@ tmp = permute(tmp, [1 3 2]);
 tmp = tmp(256:-1:1,:, 256:-1:1);
 parcels = tmp;
 
+file='ROIv4_HR_th.nii.gz';
+
+
 figure;
 bar(reshape(parcels,[],1))
 figure;
