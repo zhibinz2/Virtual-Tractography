@@ -1,3 +1,4 @@
+clear
 cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/Volumes/scale250
 tmp = read_avw('ROIv4_HR_th.nii.gz');
 tmp = permute(tmp, [1 3 2]);

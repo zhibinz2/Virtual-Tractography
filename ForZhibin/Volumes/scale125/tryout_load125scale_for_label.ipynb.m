@@ -1,5 +1,7 @@
+clear
 cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/Volumes/scale250
 tmp = read_avw('ROIv4_HR_th.nii.gz');
+
 clear
 cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/Volumes/scale125
 tmp = read_avw('ROIv4_HR_th.nii.gz');
@@ -14,6 +16,7 @@ file='ROIv4_HR_th.nii.gz';
 
 figure;
 bar(reshape(parcels,[],1))
+
 figure;
 bar(unique(reshape(parcels,[],1)))
 
