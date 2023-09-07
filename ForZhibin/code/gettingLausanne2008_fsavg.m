@@ -1,6 +1,8 @@
 % I have volumes currently for the weird reduced parcellation.
 % 
-% I can take each vertex, and I have the vertex location inside Brain. I just need to check either the closest point on the larger surface/which volume (this can be directly indexed
+% I can take each vertex, and I have the vertex location inside Brain. 
+% I just need to check either the closest point on the 
+% larger surface/which volume (this can be directly indexed
 % ie the volume can be directly indexed to iedentify where each vertex sits. 
 addpath(genpath('/usr/share/fsl/5.0/etc/matlab'))
 addpath(genpath('~/Downloads/vol3d/'))
