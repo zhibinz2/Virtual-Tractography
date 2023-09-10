@@ -1,0 +1,31 @@
+clear
+cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/Volumes/scale250
+load('parcel_reorganized_by_xyz.mat')
+% load('parcel_coor_labels.mat')
+
+cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/processed_data
+
+superiorfrontal_=[37:53];
+caudalmiddlefrontal_L=[54:28];
+precentral_L=[59:74];
+
+superiorfrontal_R=[265:282];
+caudalmiddlefrontal_R=[283:288];
+precentral_R=[289:309];
+
+x=parcel_cordinates(:,1); y=parcel_cordinates(:,2); z=parcel_cordinates(:,3);
+picked_label=precentral_R;
+picked_ind=[];
+for i=1:length(picked_label)
+        picked_ind_tmp=find(parcel_labels==(picked_label(i)));
+        picked_ind=[picked_ind;picked_ind_tmp];
+end
+% picked_ind=int64(picked_ind);
+figure
+plot3(x,y,z,'g.')
+clear alpha
+alpha(.2)
+hold on;
+plot3(x(picked_ind),y(picked_ind),z(picked_ind),'r.')
+% view([-1,0,0]) % left side view
+view([1,0,0]) % right side view
