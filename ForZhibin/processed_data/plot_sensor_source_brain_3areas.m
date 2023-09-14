@@ -1,5 +1,7 @@
 %%  Left view
 figure('units','inch','position',[0,0,10,8]);
+
+clf;
 cd C:/Users/zhouz\GitHub\Virtual-Tractography\ForZhibin/processed_data/
 cd ../processed_data
 load('scale250_Connectome.mat')
@@ -41,7 +43,7 @@ Sources.Color=[0 1 0 0.5]
 
 % Motor
 % [~,picked_ind_tmp]=ismember(precentral_L,source_labels);
-for i=1:length(precentral_L)
+for i=[5:13] % 14:16 is at most inferior location; 1:4 and 17:21 at the top and middle above corpus collosum
         picked_ind_tmp=[];
         picked_ind_tmp=find(source_labels==(precentral_L(i)));
         if ~isempty(picked_ind_tmp)
@@ -129,7 +131,7 @@ Sources.Color=[0 1 0 0.5]
 
 % Motor
 % [~,picked_ind_tmp]=ismember(precentral_L,source_labels);
-for i=1:length(precentral_L)
+for i=[5:13] 
         picked_ind_tmp=[];
         picked_ind_tmp=find(source_labels==(precentral_L(i)));
         if ~isempty(picked_ind_tmp)
@@ -219,7 +221,7 @@ Sources.Color=[0 1 0 0.5]
 
 % Motor
 % [~,picked_ind_tmp]=ismember(precentral_L,source_labels);
-for i=1:length(precentral_L)
+for i=[5:13] 
         picked_ind_tmp=[];
         picked_ind_tmp=find(source_labels==(precentral_L(i)));
         if ~isempty(picked_ind_tmp)
@@ -264,3 +266,4 @@ title('Front view');
 
 text(175,60,100,'Sources','color',[0 0.8 0],'FontSize',15);
 text(175,50,90,'EEG sensors','color',[1 0.8 0.2],'FontSize',15);
+cd C:/Users/zhouz\GitHub\Virtual-Tractography\ForZhibin/processed_data/

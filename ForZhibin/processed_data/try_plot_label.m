@@ -71,14 +71,21 @@ title('caudalmiddlefrontal-R (Right view)');
 sgtitle('source-fsaverage');
 
 %% hand area
-precentral_R=[59:74];
 % cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/processed_data
 cd C:\Users\zhouz\GitHub\Virtual-Tractography\ForZhibin\processed_data
 cd ../processed_data
 load('scale250_Connectome.mat')
 
-picked_label=precentral_R;
 figure
+
+picked_label=[59:74]; % precentral_R
+picked_label=[1:7];
+picked_label=[8:9];
+picked_label=[10];
+picked_label=[11:15]
+picked_label=[16:23]; % parstriangularis https://radiopaedia.org/articles/pars-triangularis
+picked_label=[289:309]; % precentral_L
+
 clf
 scatter3(x,y,z,...
     50,zeros(length(source_fsaverage),1),"filled", 'MarkerFaceAlpha',.1);
@@ -98,17 +105,15 @@ end
 cb = colorbar(); 
 colormap('jet');
 clim([-1*length(picked_label) length(picked_label)])
-title(cb, 'label: precentral#')
-
 xlabel('x'); ylabel('y');zlabel('z')
-% view([-1,0,0]) % left side view
-view([1,0,0]) % right side view
+% view([1,0,0]) % right side view
+view([-1,0,0]) % left side view
 % view([0 1 0]) % Front view
 % view([0 -1 0]) % Back view
 % view([0 0 1]) % top view
-title([ 'source-fsaverage: ' 'precentral-R (Right view)']);
-title([ 'source-fsaverage: ' 'precentral-R (Top view)']);
-
+% title([ 'source-fsaverage: ' 'precentral-R (Right view)']);
+% title([ 'source-fsaverage: ' 'precentral-R (Top view)']);
+title(cb, 'label: precentral#')
 % pick precentra_5-15 to cover the hand area
 %% superiorfrontal_R
 superiorfrontal_R=[37:53];
