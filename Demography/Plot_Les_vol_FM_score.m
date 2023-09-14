@@ -23,5 +23,6 @@ xlabel('log of lesion volume (mm^3)', 'FontSize',12);
 % text(5,10e4,'Time post stroke > 30 days','color','blue','FontSize',12);
 text(3.5,10,'Time post stroke < 30 days','color','red','FontSize',12);
 text(3.5,5,'Time post stroke > 30 days','color','blue','FontSize',12);
-title('Patient demographics');
+% title('Patient demographics');
 % xlim([-0.5e4 12e4]);ylim([0 70]);
+set(gcf,'color','w');
