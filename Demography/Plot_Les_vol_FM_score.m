@@ -11,15 +11,17 @@ clf;
 hold on;
 for i=1:62
     if Time_post_stroke_days(i) < 30
-        plot(Fugl_Meyer_Score(i),lesion_volume_mm3(i),'r.', MarkerSize=15);
+        plot(log(lesion_volume_mm3(i)),Fugl_Meyer_Score(i),'r.', MarkerSize=15);
     end
     if Time_post_stroke_days(i) > 30
-        plot(Fugl_Meyer_Score(i),lesion_volume_mm3(i),'b.', MarkerSize=15);
+        plot(log(lesion_volume_mm3(i)),Fugl_Meyer_Score(i),'b.', MarkerSize=15);
     end
 end
-xlabel('Fugl Meyer Score', 'FontSize',12); 
-ylabel('lesion volume (mm^3)', 'FontSize',12); 
-text(5,11e4,'Time post stroke < 30 days','color','red','FontSize',12);
-text(5,10e4,'Time post stroke > 30 days','color','blue','FontSize',12);
+ylabel('Fugl Meyer Score', 'FontSize',12); 
+xlabel('log of lesion volume (mm^3)', 'FontSize',12); 
+% text(5,11e4,'Time post stroke < 30 days','color','red','FontSize',12);
+% text(5,10e4,'Time post stroke > 30 days','color','blue','FontSize',12);
+text(3.5,10,'Time post stroke < 30 days','color','red','FontSize',12);
+text(3.5,5,'Time post stroke > 30 days','color','blue','FontSize',12);
 title('Patient demographics');
-ylim([-0.5e4 12e4]);xlim([0 70]);
+% xlim([-0.5e4 12e4]);ylim([0 70]);
