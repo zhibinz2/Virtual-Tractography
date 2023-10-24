@@ -4,21 +4,24 @@ cd ../Volumes/scale250
 load('parcel_reorganized_by_xyz.mat') % volumetric parcels
 % load('parcel_coor_labels.mat')
 
-cd ../processed_data
+cd ../../processed_data
 
 % Note: The source coordinates go from left hemisphere to the right hemisphere. 
 % But the labeled parcels go from the right to the left
 superiorfrontal_R=[37:53];
 caudalmiddlefrontal_R=[54:58];
 precentral_R=[59:74];
+cuneus_R=[148:151];
+cuneus_R1=148;
 
 superiorfrontal_L=[265:282];
 caudalmiddlefrontal_L=[283:288];
 precentral_L=[289:309];
+cuneus_L=[380:382];
 
 x=parcel_cordinates(:,1); y=parcel_cordinates(:,2); z=parcel_cordinates(:,3);
 
-picked_label=caudalmiddlefrontal_L;
+picked_label=cuneus_R;
 picked_ind=[];
 for i=1:length(picked_label)
         picked_ind_tmp=find(parcel_labels==(picked_label(i)));
@@ -26,6 +29,7 @@ for i=1:length(picked_label)
 end
 % picked_ind=int64(picked_ind);
 figure
+clf
 scatter3(x,y,z,'g.')
 clear alpha
 alpha(.1)
