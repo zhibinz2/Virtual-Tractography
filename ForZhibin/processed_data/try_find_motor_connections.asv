@@ -176,25 +176,24 @@ end
 imwrite(gifim,map,'filename.gif');
 
 %%
-cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/processed_data/video3d_plot
-im={}; 
-% jj=1; % jj  is the frame number
-% [im{jj},map]=frame2im(getframe);
+im={}; jj=1; % jj  is the frame number
+[im{jj},map]=frame2im(getframe);
 % figure;imagesc(im{1})
 jjend=16; % total 16 frames
-x=0;y=0;y2=0;z=0;
+x=1;y=1;z=1;
 theta = linspace(0, 2*pi, 8);
-xs=cos(theta);ys=sin(theta);y2s=cos(theta);zs=sin(theta);
-xlim([-120 120]);ylim([-120 120]);zlim([-120 120]);
-for jj=1:jjend
+xs=cos(theta);ys=sin(theta);y2s=coszs=sin(theta);
+for jj=2:jjend
     figure(1)
     if jj<9
         x=x+1;y=y+1;
         view([xs(x),ys(y),0])
     else
-        y2=y2+1;z=z+1;
-        view([0,y2s(y2),zs(z)])
+        y
+        view([0,ys(y),zs(z)])
     end
+    
+    
     % view([-1,0,0]) % left side view
     % view([1,0,0]) % right side view
     % view([0 1 0]) % Front view
@@ -202,17 +201,6 @@ for jj=1:jjend
     % view([0 0 1]) % top view
     % rotate3d on
     % rotate3d('on')
-    [im{jj},map]=frame2im(getframe);
-    jj=jj+1;
-    pause(0.5)
-end
-[temp, map]=rgb2ind(im{1},65536); % maximum is 65536
 
-clear gifim
-for jj=1:jjend
-    gifim(:,:,1,jj)=rgb2ind(im{jj}(1:413,1:498,:),map);
-end
-
-imwrite(gifim,map,'filename.gif');
 
 
