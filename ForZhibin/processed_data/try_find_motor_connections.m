@@ -39,36 +39,127 @@ connected_rois=unique([r;c]);
 % plot the sources connected
 [bool_a,ind_b] = ismember(source_labels,connected_rois);
 
-% Example
-% a = [9 9 8 8 7 7 7 6 6 6 5 5 4 4 2 1 1 1]
-% b = [1 1 1 3 3 3 3 3 4 4 4 4 4 9 9 9]
-% [lia1,locb1] = ismember(a,b)
-% length(lia1)
-% length(locb1)
+% load source
+cd /home/zhibinz2/Documents/GitHub/MEG_EEG_Source_Localization/EEG_32chan_pca
+load('source_rr.mat');
+%% load source and aligned with fsaverage
+cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/processed_data
+load('Lausanne2008_fsaverageDSsurf_60_125_250.mat')
+% label the sources
+Vertex=Brain.Vertex;
+load('parcels.mat') % This is the labels
+% Anni's labeling method
+x_shift=(max(Vertex(:,1))-max(source_rr(:,1))*1e3)/2+(min(Vertex(:,1))-min(source_rr(:,1))*1e3)/2;
+y_shift=(max(Vertex(:,2))-max(source_rr(:,2))*1e3)/2+(min(Vertex(:,2))-min(source_rr(:,2))*1e3)/2;
+z_shift=(max(Vertex(:,3))-max(source_rr(:,3))*1e3)/2+(min(Vertex(:,3))-min(source_rr(:,3))*1e3)/2;
+% x_shift=(max(Vertex(:,1))-max(source_rr(:,1))*1e3)/3+(min(Vertex(:,1))-min(source_rr(:,1))*1e3)/3+...
+%         (mean(Vertex(:,1))-mean(source_rr(:,1))*1e3)/3;
+% y_shift=(max(Vertex(:,2))-max(source_rr(:,2))*1e3)/3+(min(Vertex(:,2))-min(source_rr(:,2))*1e3)/3+...
+%         (mean(Vertex(:,2))-mean(source_rr(:,2))*1e3)/3;
+% z_shift=(max(Vertex(:,3))-max(source_rr(:,3))*1e3)/3+(min(Vertex(:,3))-min(source_rr(:,3))*1e3)/3+...
+%         (mean(Vertex(:,3))-mean(source_rr(:,3))*1e3)/3;
+% x_shift=(mean(Vertex(:,1))-mean(source_rr(:,1))*1e3);
+% y_shift=(mean(Vertex(:,2))-mean(source_rr(:,2))*1e3);
+% z_shift=(mean(Vertex(:,3))-mean(source_rr(:,3))*1e3);
+source_x=source_rr(:,1) * 1e3 + x_shift;
+source_y=source_rr(:,2) * 1e3 + y_shift;
+source_z=source_rr(:,3) * 1e3 + z_shift;
+source_xyz=[source_x source_y source_z];
+num_source=size(source_xyz,1);
+source_fsaverage = source_xyz+127.5; % 127.5 is based on the fsaverage volume being 256 x 256 x 256
+source_labels=zeros(num_source,1);
+for i = 1:length(source_fsaverage)
+    vox = floor(source_fsaverage(i,:)); % change from ceil to floor,now we have 2 subcortical not mapped
+    inds              = sub2ind([size(parcels)], vox(1), vox(2), vox(3));
+    label             = parcels(inds); 
+    source_labels(i) = label;
+end
+
+%% aligned with drawmesh
+cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/processed_data
+load('scale250_Connectome.mat')
+figure('units','inch','position',[0,0,10,8]);
+clf
+Face=Brain.Face;
+Vertex=Brain.Vertex;
+x=source_fsaverage(:,1); y=source_fsaverage(:,2); z=source_fsaverage(:,3);
+x_shift=(max(Vertex(:,1))-max(x))/2+(min(Vertex(:,1))-min(x))/2;
+y_shift=(max(Vertex(:,2))-max(y))/2+(min(Vertex(:,2))-min(y))/2;
+z_shift=(max(Vertex(:,3))-max(z))/2+(min(Vertex(:,3))-min(z))/2;
+Vertex(:,1)=Vertex(:,1)-x_shift;
+Vertex(:,2)=Vertex(:,2)-y_shift;
+Vertex(:,3)=Vertex(:,3)-z_shift;
+tr = triangulation(Face, Vertex(:,1), Vertex(:,2), Vertex(:,3));
+Brainmesh=trimesh(tr,'EdgeColor',[0.01 0.01 0.01],'EdgeAlpha',0.02);
+colormap('gray');
+alpha(Brainmesh, 0.01);
+
+view([-1,0,0]) % left side view
+hold on;
+%% plot
+
+% shift coordinates of the sources to the center
+shift_x=mean(source_x)-0;shift_y=mean(source_y)-0;shift_z=mean(source_z)-0;
+source_x=source_x-shift_x;source_y=source_y-shift_y;source_z=source_z-shift_z;
 
 % plot all connected areas to the 3 motor areas
+% figure('units','normalized','outerposition',[0 0 0.1 0.4]);
 figure;
 clf;
+% subplot(131);
 scatter3(source_x,source_y,source_z,'g');
 hold on;
 scatter3(source_x(bool_a),source_y(bool_a),source_z(bool_a),'r.');
+vlim=90;
+xlim([-1*vlim vlim]);ylim([-1*vlim vlim]);zlim([-1*vlim vlim]);
+grid off;
+axis off;
+set(gcf,'color','w');
+% view([-1,0,0]) % left side view
+view([1,0,0]) % right side view
+% view([0 1 0]) % Front view
+% view([0 -1 0]) % Back view
+% view([0 0 1]) % top view
+% view([0 0 -1]) % bottom view
+% rotate3d on
+% rotate3d('on')
 
-%%
-x = 0:0.01:1;
-p = plot(nan,nan);
-p.XData = x;
-for n = 1:0.5:5
-      p.YData = x.^n;
-      exportgraphics(gcf,'testAnimated.gif','Append',true);
-end
-%% Anymate
+% figure('units','normalized','outerposition',[0 0 0.2 0.4]);
+figure
+scatter3(source_x,source_y,source_z,'g');
+hold on;
+scatter3(source_x(bool_a),source_y(bool_a),source_z(bool_a),'r.');
+vlim=90;
+xlim([-1*vlim vlim]);ylim([-1*vlim vlim]);zlim([-1*vlim vlim]);
+grid off;
+axis off;
+set(gcf,'color','w');
+view([0 0 1]) % top view
+title('top anterior')
+
+figure
+scatter3(source_x,source_y,source_z,'g');
+hold on;
+scatter3(source_x(bool_a),source_y(bool_a),source_z(bool_a),'r.');
+vlim=90;
+xlim([-1*vlim vlim]);ylim([-1*vlim vlim]);zlim([-1*vlim vlim]);
+grid off;
+axis off;
+set(gcf,'color','w');
+view([0 0 -1]) % bottom view
+title('bottom posterior')
+
+sgtitle('connected with M1');
+
+sgtitle('connected with PMC');
+sgtitle('connected with SMA');
+%% Anymate (skip)
 % https://www.mathworks.com/matlabcentral/fileexchange/18210-anymate
 anymate(@plot,rand(5,5,5), 'Play', true);
 
 [x,y,z]=sphere;
 anymate(@surf,{cat(3,x,.2*x+1) cat(3,y,y) cat(3,z,2*z)});
 colormap(jet);
-
 
 %% Create Video of Rotating 3D Plot
 % https://www.mathworks.com/matlabcentral/fileexchange/41093-create-video-of-rotating-3d-plot
@@ -174,34 +265,51 @@ for jj=1:jjend
 end
 
 imwrite(gifim,map,'filename.gif');
-
 %%
+r = 1;
+xm = 0;
+ym = 0;
+teta = linspace(0, 2.5*pi, 25);
+x = r*cos(teta) + xm;
+y = r*sin(teta) + ym;
+inclined_angle = 22;
+z = ones(1,length(x));
+
+figure
+c = plot3(x, y, z);
+grid on
+xlabel('x')
+ylabel('y')
+axis('equal')
+view(15,20)
+rotate(c, [1 1 0], inclined_angle)                      % Inclines In 'x' and 'y' Directions
+
+%% rotation 2.5 pi two ways
 cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/processed_data/video3d_plot
+view([1,0,0]) % right side view
+grid off;
+axis on;
 im={}; 
 % jj=1; % jj  is the frame number
 % [im{jj},map]=frame2im(getframe);
 % figure;imagesc(im{1})
-jjend=16; % total 16 frames
-x=0;y=0;y2=0;z=0;
-theta = linspace(0, 2*pi, 8);
-xs=cos(theta);ys=sin(theta);y2s=cos(theta);zs=sin(theta);
+x=0;y=0;y2=1;z=1;
+n_onecir=50;
+theta = linspace(0, 2.5*pi, n_onecir);
+jjend=2*n_onecir-1; % total jjend frames
+xs=cos(theta);ys=sin(theta);y2s=cos(theta);zs=-1*sin(theta);
 xlim([-120 120]);ylim([-120 120]);zlim([-120 120]);
 for jj=1:jjend
     figure(1)
-    if jj<9
+    if jj<n_onecir;
         x=x+1;y=y+1;
         view([xs(x),ys(y),0])
-    else
+    elseif jj==n_onecir;
+        view([xs(x),ys(y),0])
+    else jj>n_onecir;
         y2=y2+1;z=z+1;
         view([0,y2s(y2),zs(z)])
     end
-    % view([-1,0,0]) % left side view
-    % view([1,0,0]) % right side view
-    % view([0 1 0]) % Front view
-    % view([0 -1 0]) % Back view
-    % view([0 0 1]) % top view
-    % rotate3d on
-    % rotate3d('on')
     [im{jj},map]=frame2im(getframe);
     jj=jj+1;
     pause(0.5)
@@ -210,9 +318,42 @@ end
 
 clear gifim
 for jj=1:jjend
-    gifim(:,:,1,jj)=rgb2ind(im{jj}(1:413,1:498,:),map);
+    gifim(:,:,1,jj)=rgb2ind(im{jj}(1:380,1:493,:),map);
 end
 
 imwrite(gifim,map,'filename.gif');
 
 
+%% rotation 1/3subplots
+cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/processed_data/video3d_plot
+% subplot(131);
+view([1,0,0]) % right side view
+grid off;
+axis off;
+im={}; 
+% jj=1; % jj  is the frame number
+% [im{jj},map]=frame2im(getframe);
+% figure;imagesc(im{1})
+x=0;y=0;
+n_onecir=40;
+theta = linspace(0, 2*pi, n_onecir);
+% jjend=n_onecir-1; % total jjend frames
+xs=cos(theta);ys=sin(theta);
+xlim([-120 120]);ylim([-120 120]);zlim([-120 120]);
+for jj=1:n_onecir
+    figure(1)
+    x=x+1;y=y+1;
+    view([xs(x),ys(y),0])
+
+    [im{jj},map]=frame2im(getframe);
+    jj=jj+1;
+    pause(0.5)
+end
+[temp, map]=rgb2ind(im{1},65536); % maximum is 65536
+
+clear gifim
+for jj=1:n_onecir
+    gifim(:,:,1,jj)=rgb2ind(im{jj}(1:343,1:380,:),map);
+end
+
+imwrite(gifim,map,'m1.gif');
