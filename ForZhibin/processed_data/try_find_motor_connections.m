@@ -31,12 +31,12 @@ non_motor_ones=~motor_ones;
 fc_bool(find(non_motor_ones))=0;
 % imagesc(fc_bool)
 
-[r,c,v]=find(fc_bool);
+[r,c,v]=find(fc_bool); % r and c are the index of rows and colums, v is the values of ones
 
-% all connected ROIs
+% all connected ROIs labels
 connected_rois=unique([r;c]);
 
-% plot the sources connected
+% plot all sources connected
 [bool_a,ind_b] = ismember(source_labels,connected_rois);
 
 % load source
