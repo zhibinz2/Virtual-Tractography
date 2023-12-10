@@ -1,9 +1,10 @@
 %% Basedata Brain, MNI152 ? not shifted?
 cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/processed_data
 
+cd C:\Users\zhouz\GitHub\Virtual-Tractography\ForZhibin\processed_data
 clear
 
-load('scale250_Connectome.mat')
+load('scale250_Connectome.mat') % 182X218X182 in MNI space
 
 parcels(92,:,92)
 
