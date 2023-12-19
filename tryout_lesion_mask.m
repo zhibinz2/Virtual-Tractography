@@ -70,7 +70,7 @@ for i=1:62
     lesion_values=tmp(find(tmp));
     unique_values=unique(lesion_values);
     max_value=max(unique_values);
-    
+
     lesion_labels=(parcels(find(tmp)));
     unique_labels = unique(lesion_labels);
     n  = histc(lesion_labels,unique_labels);
@@ -91,3 +91,4 @@ end
 v=tmp(find(tmp));
 scatter3(x,y,z,50,v,'filled');colorbar;
 
+%% lesion SC
