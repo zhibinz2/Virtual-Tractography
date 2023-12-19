@@ -68,14 +68,10 @@ les_sites=cell(62,1);
 for i=1:62
     tmp=read_avw(FileNames{i});
     lesion_values=tmp(find(tmp));
-    unique_values=unique(lesion_values);
-    max_value=max(unique_values);
-    
     lesion_labels=(parcels(find(tmp)));
     unique_labels = unique(lesion_labels);
     n  = histc(lesion_labels,unique_labels);
     [counts,inds]=sort(n,"descend");
-    
     if unique_labels(inds(1))~=0
         ind=unique_labels(inds(1)); 
     elseif unique_labels(inds(1))==0 & length(inds)==1

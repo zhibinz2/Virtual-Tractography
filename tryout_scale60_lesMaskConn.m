@@ -1,4 +1,5 @@
 clear
+close all
 load('scale60_lesMaskConn.mat')
 
 Face=Brain.Face;

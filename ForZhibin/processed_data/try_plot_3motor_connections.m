@@ -2,7 +2,7 @@ cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/processed_data
 load('scale250_Connectome.mat'); % load fc
 % the boolean of the full connections
 % fc_bool=logical(fc);
-load('Lausanne2008_fsaverageDSsurf_60_125_250.mat')
+load('Lausanne2008_fsaverageDSsurf_60_125_250.mat');
 Face=Brain.Face;
 Vertex=Brain.Vertex+127.5;
 [Face,Vertex] = reducepatch(Face, Vertex, 0.5); % downsample to half 
