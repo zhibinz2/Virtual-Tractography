@@ -49,7 +49,7 @@ tmp=read_avw('sum62.nii.gz'); % 301x370x316
 unique(tmp) % 0-28
 bar(reshape(tmp,[],1)) % no idea what it is
 
-%% extract the biggest lesion label
+%% read mask files
 clear
 cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/processed_data
 load('scale250_Connectome.mat') % scale 250 (MNI space)
@@ -63,7 +63,7 @@ for i=1:62
     FileNames{i}= FileList(1).name;
     FileDirs{i}= fullfile(pwd, FileList(1).name);
 end
-
+%% extract the biggest lesion label
 les_sites=cell(62,1);
 for i=1:62
     tmp=read_avw(FileNames{i});
@@ -77,14 +77,51 @@ for i=1:62
     [counts,inds]=sort(n,"descend");
     
     if unique_labels(inds(1))~=0
-        ind=unique_labels(inds(1)); 
-    elseif unique_labels(inds(1))==0 & length(inds)==1
-        les_sites{i}={[]};
+        ind=unique_labels(inds(1));
+        les_sites{i}=roiNames_250(ind);
+    elseif unique_labels(inds(1))==0 & length(inds)==1 % if label is 0 only
+        les_sites{i}=[];
     else
-        ind=unique_labels(inds(2)); 
+        ind=unique_labels(inds(2));
+        les_sites{i}=roiNames_250(ind);
     end
-    les_sites{i}=roiNames_250(ind);
 end
+
+
+%% extract all lesion ROIs and organized in 62 subjects and sorted them from big to small
+clear
+cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/processed_data
+load('scale250_Connectome.mat', 'roiNames_250')
+
+cd /home/zhibinz2/Documents/GitHub/archive/STROKE/lesion_masks
+% les_all_sites=cell(62,1);
+p62_les_labels=cell(62,1);
+for i=1:62
+    tmp=read_avw(FileNames{i});
+    lesion_labels=(parcels(find(tmp)));
+    unique_labels = unique(lesion_labels);
+    n  = histc(lesion_labels,unique_labels);
+    [counts,inds]=sort(n,"descend");
+    
+    les_sort_labels=unique_labels(inds);
+    % remove zero entry
+    les_sort_labels(les_sort_labels==0)=[];
+    % les_all_sites{i}=roiNames_250(les_sort_labels);
+    p62_les_labels{i}=les_sort_labels;
+end
+
+% examine why i= 45 46 are empty
+i=45
+tmp=read_avw(FileNames{i});
+lesion_labels=(parcels(find(tmp)));
+unique_labels = unique(lesion_labels);
+n  = histc(lesion_labels,unique_labels);
+[counts,inds]=sort(n,"descend");
+
+les_sort_labels=unique_labels(inds);
+% remove zero entry
+les_sort_labels(les_sort_labels==0)=[];
+
 
 %% 3d plot the lesion value
 [x,y,z,v]=ind2sub(size(tmp),find(tmp));

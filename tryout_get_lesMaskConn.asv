@@ -142,25 +142,5 @@ end
 % 15 min
 sum(lesMaskStreamlines) % number of streamlines intersected by the lesion
 
-
-p62_les_labels=cell(62,1);
-for i=1:62
-    tic
-    tmp=read_avw(FileNames{i});
-    lesion_labels=(parcels(find(tmp)));
-    unique_labels = unique(lesion_labels);
-    n  = histc(lesion_labels,unique_labels);
-    [counts,inds]=sort(n,"descend");
-    
-    les_sort_labels=unique_labels(inds);
-    % remove zero entry
-    les_sort_labels(les_sort_labels==0)=[];
-    % les_all_sites{i}=roiNames_250(les_sort_labels);
-    p62_les_labels{i}=les_sort_labels;
-    toc
-end
-% < 1 min
-tic
-save('p62_getLesionMaskConnectome.mat','FileNames','fc62','red62','les62','p62_noEnd_strs', ...
-    'p62_roi463_str','p62_les_strs','p62_roi2roi','p62_les_labels','-v7.3');
-toc
+save('p62_getLesionMaskConnectome.mat','fc62','red62','les62','p62_noEnd_strs', ...
+    'p62_roi463_str','p62_les_strs','p62_roi2roi','-v7.3');
