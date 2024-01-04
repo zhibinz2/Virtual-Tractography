@@ -122,6 +122,13 @@ les_sort_labels=unique_labels(inds);
 % remove zero entry
 les_sort_labels(les_sort_labels==0)=[];
 
+%% get lesion size from les mask
+cd /home/zhibinz2/Documents/GitHub/archive/STROKE/lesion_masks
+les_size_p62=nan(62,1);
+for i=1:62
+    tmp=read_avw(FileNames{i});
+    les_size_p62(i)=sum(find(tmp));
+end
 
 %% 3d plot the lesion value
 [x,y,z,v]=ind2sub(size(tmp),find(tmp));
