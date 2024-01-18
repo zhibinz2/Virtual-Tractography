@@ -1,4 +1,4 @@
-
+%% map lesion with parcels
 clear
 
 cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography

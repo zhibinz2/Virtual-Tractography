@@ -357,3 +357,11 @@ for jj=1:n_onecir
 end
 
 imwrite(gifim,map,'m1.gif');
+
+%% GUI method converting mp4 to gif
+% use obs studio to record the screen into mp4
+% use openshot to crop the video 
+% use ffmpeg to convert mp4 to gif
+% ffmpeg -i input_video_file output.gif
+% https://itsfoss.com/convert-video-gif-linux/
+cd /home/zhibinz2/Videos
