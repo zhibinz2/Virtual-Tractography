@@ -2,12 +2,13 @@
 figure('units','inch','position',[0,0,10,8]);
 
 clf;
-cd C:/Users/zhouz\GitHub\Virtual-Tractography\ForZhibin/processed_data/
-cd ../processed_data
+% cd C:/Users/zhouz\GitHub\Virtual-Tractography\ForZhibin/processed_data/
+cd /home/zhibinz2/Documents/GitHub/Virtual-Tractography/ForZhibin/processed_data
+% cd ../processed_data
 load('scale250_Connectome.mat')
 Face=Brain.Face;
 Vertex=Brain.Vertex;
-cd C:/Users/zhouz\GitHub\Virtual-Tractography\ForZhibin/processed_data/
+% cd C:/Users/zhouz\GitHub\Virtual-Tractography\ForZhibin/processed_data/
 cd ../../../MEG_EEG_Source_Localization/EEG_spacing_DAON/
 load('DAON_ico_3_scale_0.05_depth_0.8.mat')
 x=source_fsaverage(:,1); y=source_fsaverage(:,2); z=source_fsaverage(:,3);
